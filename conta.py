@@ -6,16 +6,15 @@ from abc import ABC, abstractmethod
 import historico
 import clientes
 
-class Conta:
+class Conta(ABC):
     
     def __init__(
         self,
-        #numero_conta: str,
         numero_agencia: str,
         saldo: float = 0.0,
     ) -> None:
         
-        self._cliente = None
+        self._cliente = clientes.
         self._numero_conta = None
         self._numero_agencia = numero_agencia
         self._historico_conta = {}

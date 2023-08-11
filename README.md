@@ -44,9 +44,9 @@ Realizando a adição de uma Classe Abstrata para gravar e recuperar de um arqui
 
 Utilizando a Biblioteca <strong><i> pathlib </strong></i> para criar o arquivo e realizar a manipulação.
 
-### Adicionando Classe de Validação
+### Adicionando Classe de Serviços
 
-Módulo criado para realizar as validações de entrada de dados e outras funcionalidades relacionadas ao serviço.
+Módulo criado para realizar as validações de entrada de dados, tratamento de erros, cálculos.
 
  
 ### GitHub Stats
