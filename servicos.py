@@ -1,5 +1,5 @@
 import datetime as dt
-import clientes
+import clientes, conta
 
 conta_cliente_ag0001=0
 
@@ -45,7 +45,7 @@ class Servicos:
                 
         return cpf_titular_pf, nome_titular_pf, data_nascimento_pf, endereco_pf
     
-    
+    @staticmethod
     def tratar_cpf(cpf_digitado):
         cpf_cliente = cpf_digitado
         #  tratamento para entrada CPF cliente
@@ -55,7 +55,7 @@ class Servicos:
         
         return cpf_cliente if cpf_cliente.isnumeric() else False
       
-         
+    @staticmethod    
     def verificar_data(entrada_data):
         
         data_atual = dt.date.today()
@@ -87,7 +87,8 @@ class Servicos:
                
         return entrada_data
     
-    
+    # Método adicional para teste
+    @staticmethod
     def validar_cpf(cpf):
         
         verificar_cpf = Servicos.tratar_cpf(cpf)
@@ -128,14 +129,8 @@ class Servicos:
         else:
             print('CPF válido!!!')
             True
-    
-    @staticmethod
-    def verificar_existencia_cliente(entrada_cpf):
         
-       if entrada_cpf in clientes.PessoaFisica.cpf:
-           print('oh')
-    
-    
+        
     
 
 if __name__ == "__main__":
@@ -148,7 +143,7 @@ if __name__ == "__main__":
     
     print(c4.cpf)
     
-    Servicos.validar_cpf('46380434291')
+    Servicos.validar_cpf('74546242000')
     
     # a = Servicos.instante()
     # print(a)

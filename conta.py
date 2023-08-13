@@ -4,17 +4,19 @@
 
 from abc import ABC, abstractmethod
 import historico
-import clientes
+import clientes, servicos
+
 
 class Conta(ABC):
     
+    @abstractmethod
     def __init__(
         self,
         numero_agencia: str,
         saldo: float = 0.0,
     ) -> None:
         
-        self._cliente = clientes.
+        self._cliente = None
         self._numero_conta = None
         self._numero_agencia = numero_agencia
         self._historico_conta = {}
@@ -29,6 +31,10 @@ class Conta(ABC):
                 f'historico_conta = {self._historico_conta}\n'\
                 f'saldo = {self._saldo:.2f})'
 
+
+class ContaCorrente(Conta):
+    
+    def __init__(self, cliente):...
 
 
 
