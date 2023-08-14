@@ -1,3 +1,4 @@
+import abc
 import datetime as dt
 import clientes, conta
 
@@ -27,11 +28,18 @@ class Servicos:
     
     def cadastrar_pessoa_fisica():
         
-        cpf_titular_dig = input("Digite o CPF: ")
+        cpf_titular_dig = str(input("Digite o CPF: "))
         cpf_titular_pf = Servicos.tratar_cpf(cpf_titular_dig)
         if cpf_titular_pf == False:
             print('CPF digitado não é válido!!!')
             return False
+        
+        verificacao_bs_dados = Servicos.verificar_cliente_cpf(cpf_titular_pf)
+        
+        if verificacao_bs_dados == True:
+            return False
+        
+        
         
         nome_titular_pf = input("Digite o nome completo: ")
         
@@ -87,6 +95,26 @@ class Servicos:
                
         return entrada_data
     
+    def adicionar_cliente(item):
+        clientes.relacao_clientes.append(item)
+    
+    @staticmethod
+    def verificar_cliente_cpf(item) -> bool:
+        
+        for i in clientes.Clientes.relacao_clientes:
+            print('passagem linha_105_servicos')
+            if item == i.cpf:
+                print("Cliente já cadastrado no banco de dados!!!")
+                return True
+        
+        return False
+    @staticmethod            
+    def listar_clientes_pf():
+        for i in clientes.Clientes.relacao_clientes:
+            print(i.cpf, i.nome, i.contas, i.endereco)   
+    
+    
+    
     # Método adicional para teste
     @staticmethod
     def validar_cpf(cpf):
@@ -129,29 +157,13 @@ class Servicos:
         else:
             print('CPF válido!!!')
             True
-        
-        
-    
 
-if __name__ == "__main__":
+    @staticmethod   
+    def borda(texto):
+        tam = len(texto)
+        if tam:
+            print('+','-'*tam,'+')
+            print('|',texto,'|')
+            print('+','-'*tam,'+')       
+            
     
-    c1 = clientes.PessoaFisica('444','a','09/09/2000','reu')
-    c2 = clientes.PessoaFisica('884','b','09/09/2000','reu')
-    c3 = clientes.PessoaFisica('994','c','09/09/2000','reu')
-    c4 = clientes.PessoaFisica('744','d','09/09/2000','reu')
-    
-    
-    print(c4.cpf)
-    
-    Servicos.validar_cpf('74546242000')
-    
-    # a = Servicos.instante()
-    # print(a)
-    # e = Servicos.criar_conta()
-    # r = Servicos.criar_conta()
-    # w = Servicos.criar_conta()
-    # data = Servicos.verificar_data('01/08/1963')
-    # print(data)
-    # print(w, r, e)
-    # # pf = Servicos.cadastrar_pessoa_fisica()
-    # # print(pf)

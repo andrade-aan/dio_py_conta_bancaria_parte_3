@@ -1,25 +1,27 @@
-from abc import ABC, abstractclassmethod, abstractproperty
+from abc import ABC
 from datetime import datetime as dt
 import servicos
 
-relacao_clientes = []
-relacao_cpf = []
 
 class Clientes:
+   
+    relacao_clientes = []
    
     def __init__ (self, endereco:str):
         self._endereco = endereco
         self._contas = []
        
-               
-    def adicionar_conta(self, conta):
-        self._contas.append(conta)
- 
-    
+        
     @property
     def contas(self):
         return self._contas
-  
+    
+    @classmethod
+    def db_adicionar_clientes(cls, item):
+        cls.relacao_clientes.append(item)
+      
+    def adicionar_conta(self, conta):
+        self._contas.append(conta) 
   
 class PessoaFisica(Clientes):
     
@@ -28,7 +30,9 @@ class PessoaFisica(Clientes):
         self._cpf = cpf
         self._nome = nome
         self._data_nascimento = data_nascimento
-        super().__init__(endereco)   
+        super().__init__(endereco)  
+        
+
       
     def __repr__(self):
         return f'CPF: {self._cpf}\n'\
@@ -53,49 +57,18 @@ class PessoaFisica(Clientes):
     def endereco(self):
         return self._endereco
 
-def adicionar_cliente(item):
-    relacao_clientes.append(item)
-    
-def verificar_cliente_cpf(item):
-    
-    for i in relacao_clientes:
-        if item == i.cpf:
-            print("Cliente já cadastrado no banco de dados!!!")
-            
-            
+         
+
 
 if __name__ == '__main__':
     
-    c1 = PessoaFisica('444','alpha','09/09/2000','casa a')
-    c1.adicionar_conta('1010-9')
-    c1.adicionar_conta('1233-6')
-   
+    c1 = PessoaFisica('444','a','09/09/2000','apto 12')
+    c2 = PessoaFisica('884','b','09/09/2000','apto 39')
+    c3 = PessoaFisica('994','c','09/09/2000','apto 45')
+    c4 = PessoaFisica('744','d','09/09/2000','apto 11')
     
-    adicionar_cliente(c1)
+    c1.adicionar_conta('1111')
     
-    c2 = PessoaFisica('884','bravo','09/09/2000','casa b')
-    c2.adicionar_conta('1013-9')
+    Clientes.db_adicionar_clientes(c1)
     
-    
-    adicionar_cliente(c2)
-    
-    c3 = PessoaFisica('994','charlie','09/09/2000','casa c')
-    c3.adicionar_conta('1220-1')
-    
-    
-    adicionar_cliente(c3)
-    
-    c4 = PessoaFisica('744','delta','09/09/2000','casa d')
-    c4.adicionar_conta('2310-4')
-   
-    
-    
-    adicionar_cliente(c4)
-    
-    verificar_cliente_cpf('444')
-    
-    
-    for i in relacao_clientes:
-        print(i.cpf, i.nome, i.contas, i.endereco)
-
     
