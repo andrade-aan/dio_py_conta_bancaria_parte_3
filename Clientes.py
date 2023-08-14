@@ -19,6 +19,13 @@ class Clientes:
     @classmethod
     def db_adicionar_clientes(cls, item):
         cls.relacao_clientes.append(item)
+    
+    @classmethod    
+    def adicionar_conta_cliente(cls, cpf, nova_conta):
+        for i in cls.relacao_clientes:
+            if i.cpf == cpf:
+                Clientes.adicionar_conta(i,nova_conta)
+                
       
     def adicionar_conta(self, conta):
         self._contas.append(conta) 
@@ -58,7 +65,9 @@ class PessoaFisica(Clientes):
         return self._endereco
 
          
-
+c1 = PessoaFisica('444','a','09/09/2000','apto 12')
+c1.adicionar_conta('1111')
+Clientes.db_adicionar_clientes(c1)
 
 if __name__ == '__main__':
     

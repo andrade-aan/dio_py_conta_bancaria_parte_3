@@ -11,29 +11,56 @@ def menu_principal():
 
 
 def menu_gerencia():
-    servicos.Servicos.borda("Menu de Gerência Agência 0001 - Bem-vindo!")
-    print(servicos.Servicos.instante())
-    print("\n1 - CADASTRAR NOVA CONTA")
-    print("2 - CADASTRAR CLIENTE")
-    print("3 - LISTAR CLIENTES")
-    print("4 - SAIR")
     
-    opcao = str(input("\n\nDigite a opção desejada:" +
-                      "\n\n>>> "))
-    
-    if opcao == '1':
-        servicos.Servicos.instante()
-        #cadastrar_conta()
-    
-    if opcao == '2':
-        servicos.Servicos.instante()
-        transacoes.Cadastro.criar_novo_cliente()
-    
-    if opcao == '3':
-        servicos.Servicos.instante()
-        servicos.Servicos.listar_clientes_pf()  
-    
+    while True:
         
+        # adicionar simulação de usuario/senha na versão final
+        servicos.Servicos.borda("Menu de Gerência Agência 0001 - Bem-vindo!")
+        
+        print(servicos.Servicos.instante())
+        print("\n1 - CADASTRAR NOVA CONTA")
+        print("2 - CADASTRAR CLIENTE")
+        print("3 - LISTAR CLIENTES")
+        print("99 - SAIR")
+        
+        opcao = str(input("\n\nDigite a opção desejada:" +
+                        "\n\n>>> "))
+        
+        if opcao == '1':
+            
+            servicos.Servicos.instante()
+            cpf_titular_dig = str(input("Digite o CPF do cliente: "))
+            
+            cpf_titular_pf = servicos.Servicos.tratar_cpf(cpf_titular_dig)
+        
+            if cpf_titular_pf == False:
+                print('CPF digitado não é válido!!!')
+                return False
+        
+            verificacao_bs_dados = servicos.Servicos.verificar_cliente_cpf(cpf_titular_pf)
+            if verificacao_bs_dados:
+                transacoes.Cadastro.criar_nova_conta_cliente(cpf_titular_pf)
+                
+            else:
+                print('CPF não cadastrado como cliente!!!')
+        
+        elif opcao == '2':
+            servicos.Servicos.instante()
+            transacoes.Cadastro.criar_novo_cliente()
+        
+        elif opcao == '3':
+            servicos.Servicos.instante()
+            servicos.Servicos.listar_clientes_pf()  
+        
+        elif opcao == '99':
+            print("\n\n")
+            break
+            
+        else:
+            print("\n\nOpção Inválida!!")
+                
+            
+            
 #Main function    
 
 while True:

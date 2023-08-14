@@ -6,7 +6,7 @@ conta_cliente_ag0001=0
 
 class Servicos:
     
-    
+    @staticmethod
     def instante(): # registrar data e hora de cada operação do sistema
         
         operacao_registro_hora = dt.datetime.now()
@@ -14,7 +14,7 @@ class Servicos:
         
         return reg_hora_operacao_formatado
     
-    
+    @staticmethod
     def criar_conta():
         
         global conta_cliente_ag0001
@@ -22,10 +22,11 @@ class Servicos:
         conta_cliente_ag0001 +=1 
         digito = ((conta_cliente_ag0001-1)%9)
         numero_conta = str("10"+str(conta_cliente_ag0001)+"-"+str(digito))
+        print(f'Conta n° {numero_conta} criada com sucesso!!!')
 
         return numero_conta
     
-    
+    @staticmethod
     def cadastrar_pessoa_fisica():
         
         cpf_titular_dig = str(input("Digite o CPF: "))
@@ -99,7 +100,7 @@ class Servicos:
         clientes.relacao_clientes.append(item)
     
     @staticmethod
-    def verificar_cliente_cpf(item) -> bool:
+    def verificar_cliente_cpf(item):
         
         for i in clientes.Clientes.relacao_clientes:
             print('passagem linha_105_servicos')

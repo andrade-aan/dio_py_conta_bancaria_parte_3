@@ -12,6 +12,7 @@ class Cadastro:
     
     @staticmethod
     def criar_novo_cliente():
+        
         dados_cliente = servicos.Servicos.cadastrar_pessoa_fisica()
         
         if dados_cliente == False:
@@ -22,12 +23,22 @@ class Cadastro:
                                              dados_cliente[2],
                                              dados_cliente[3])
         
-                
-        clientes.Clientes.db_adicionar_clientes(novo_cliente)
+        nova_conta_cliente = servicos.Servicos.criar_conta()
         
+        novo_cliente.adicionar_conta(nova_conta_cliente)
+              
+        clientes.Clientes.db_adicionar_clientes(novo_cliente)
+    
+    @staticmethod    
+    def criar_nova_conta_cliente(cpf):
+        nova_conta = servicos.Servicos.criar_conta()
+        
+        
+        
+        clientes.Clientes.adicionar_conta_cliente(cpf, nova_conta)
 
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
 
 
     c1 = clientes.PessoaFisica('444','a','09/09/2000','apto 12')
