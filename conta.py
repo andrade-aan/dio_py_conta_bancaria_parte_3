@@ -11,7 +11,7 @@ class Conta(ABC):
     
     bco_agencia_numero = '0001-9'
     
-    contas_da_agencia =[]
+    relacao_contas_da_agencia =[]
     
     @abstractmethod
     def __init__(
@@ -25,6 +25,7 @@ class Conta(ABC):
         self._numero_agencia = numero_agencia
         self._historico_conta = {}
         self._saldo = saldo
+    
         
     def __repr__(self) -> str:
         return  f'{self.__class__.__name__}:\n'\
@@ -32,7 +33,27 @@ class Conta(ABC):
                 f'numero_conta = {self._numero_conta}\n'\
                 f'numero_agencia = {self._numero_agencia}\n'\
                 f'saldo = {self._saldo:.2f}'
-
+   
+   
+    @property
+    def cliente_cpf(self):
+        return self._cliente_cpf
+    
+    
+    @property
+    def numero_conta(self):
+        return self._numero_conta
+    
+    
+    @property
+    def numero_agencia(self):
+        return self._numero_agencia
+    
+    
+    @property
+    def saldo(self):
+        return self._saldo
+    
 
 class ContaCorrente(Conta):
     
@@ -42,12 +63,24 @@ class ContaCorrente(Conta):
         self._limite = limite
         super().__init__(cliente_cpf, numero_conta, 
                          numero_agencia, saldo)
+   
+   
     @classmethod
-    def criar_nova_conta_corrente(cls, cliente_cpf, numero_conta,
-                 numero_agencia, saldo, limite):...
+    def db_adicionar_conta(cls, item) -> None:
+        cls.relacao_contas_da_agencia.append(item)
 
 
-if __name__ == '__main__':
-    
-    c1 = ContaCorrente('463','0012','0001',0)
-    print(c1)
+    @property
+    def limite(self):
+        return self._limite
+
+# ----------------------------------------------------------------
+# MOCK
+conta_teste = ContaCorrente('444','777-7','0001-9',0,0)
+ContaCorrente.db_adicionar_conta(conta_teste)
+
+conta_teste2 = ContaCorrente('444','999-7','0001-9',0,0)
+ContaCorrente.db_adicionar_conta(conta_teste2)
+
+conta_teste3 = ContaCorrente('444','888-5','0001-9',0,0)
+ContaCorrente.db_adicionar_conta(conta_teste3)

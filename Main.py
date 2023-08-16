@@ -15,12 +15,15 @@ def menu_gerencia():
     while True:
         
         # adicionar simulação de usuario/senha na versão final
-        servicos.Servicos.borda("Menu de Gerência Agência 0001 - Bem-vindo!")
+        servicos.Servicos.borda("Menu de Gerência Agência 0001-9 - Bem-vindo!")
         
         print(servicos.Servicos.instante())
         print("\n1 - CADASTRAR NOVA CONTA")
         print("2 - CADASTRAR CLIENTE")
         print("3 - LISTAR CLIENTES")
+        print("4 - LISTAR CONTAS DA AGÊNCIA")
+        print("5 - DEFINIR LIMITE DE CONTA")
+        
         print("99 - SAIR")
         
         opcao = str(input("\n\nDigite a opção desejada:" +
@@ -52,6 +55,10 @@ def menu_gerencia():
             servicos.Servicos.instante()
             servicos.Servicos.listar_clientes_pf()  
         
+        elif opcao == '4':
+            servicos.Servicos.instante()
+            servicos.Servicos.listar_contas_agencia()  
+                
         elif opcao == '99':
             print("\n\n")
             break
@@ -77,9 +84,10 @@ while True:
     
     
     # implementar operação de saque
-    if opcao == '1':...
+    if opcao == '1':
         
-        #sacar()
+        cpf_conta = servicos.Servicos.identificar_cliente_conta()
+        print(cpf_conta)
     
     # implementar operação de deposito   
     elif opcao == '2':...

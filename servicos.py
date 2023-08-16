@@ -1,3 +1,4 @@
+import datetime
 import abc
 import datetime as dt
 import clientes, conta
@@ -7,7 +8,7 @@ conta_cliente_ag0001=0
 class Servicos:
     
     @staticmethod
-    def instante(): # registrar data e hora de cada operação do sistema
+    def instante() -> datetime: # registrar data e hora de cada operação do sistema
         
         operacao_registro_hora = dt.datetime.now()
         reg_hora_operacao_formatado = operacao_registro_hora.strftime("%d/%m/%Y - %H:%M:%S")    
@@ -15,7 +16,7 @@ class Servicos:
         return reg_hora_operacao_formatado
     
     @staticmethod
-    def criar_conta(): # apenas geracao do numero de conta
+    def criar_conta() ->str: # apenas geracao do numero de conta
         
         global conta_cliente_ag0001
         
@@ -27,7 +28,7 @@ class Servicos:
         return numero_conta
     
     @staticmethod
-    def cadastrar_pessoa_fisica():
+    def cadastrar_pessoa_fisica() -> list|bool:
         
         cpf_titular_dig = str(input("Digite o CPF: "))
         cpf_titular_pf = Servicos.tratar_cpf(cpf_titular_dig)
@@ -39,8 +40,6 @@ class Servicos:
         
         if verificacao_bs_dados == True:
             return False
-        
-        
         
         nome_titular_pf = input("Digite o nome completo: ")
         
@@ -56,7 +55,7 @@ class Servicos:
         return cpf_titular_pf, nome_titular_pf, data_nascimento_pf, endereco_pf
     
     @staticmethod
-    def tratar_cpf(cpf_digitado):
+    def tratar_cpf(cpf_digitado) -> str|bool:
         cpf_cliente = cpf_digitado
         #  tratamento para entrada CPF cliente
         tratamento = cpf_cliente.replace(" ", "")
@@ -65,8 +64,9 @@ class Servicos:
         
         return cpf_cliente if cpf_cliente.isnumeric() else False
       
+      
     @staticmethod    
-    def verificar_data(entrada_data):
+    def verificar_data(entrada_data) -> str:
         
         data_atual = dt.date.today()
         
@@ -82,8 +82,7 @@ class Servicos:
         dias_vida = data_atual - data1
         dias_no_ano = 365.2425
         dias_vida = int((data_atual - data1).days/dias_no_ano)
-        
-      
+              
         # verificar tempo de vida 
         if dias_vida > 99 and dias_vida <= 120:
             resposta_dias_vida = str(input('Confirma idade superior a 100 anos? (s/n)'))
@@ -97,29 +96,76 @@ class Servicos:
                
         return entrada_data
     
-    def adicionar_cliente(item):
-        clientes.relacao_clientes.append(item)
-    
+        
     @staticmethod
-    def verificar_cliente_cpf(item):
+    def verificar_cliente_cpf(item) -> bool:
         
         for i in clientes.Clientes.relacao_clientes:
-            print('passagem linha_106_servicos')
+            
             if item == i.cpf:
                 print("Cliente já cadastrado no banco de dados!!!")
                 return True
         
         return False
-    @staticmethod            
-    def listar_clientes_pf():
+    
+    
+    @staticmethod   # opção 3 do menu gerencia         
+    def listar_clientes_pf() -> None:
         for i in clientes.Clientes.relacao_clientes:
             print(i.cpf, i.nome, i.contas, i.endereco)   
     
     
+    @staticmethod
+    def listar_contas_agencia() -> None:
+        for i in conta.Conta.relacao_contas_da_agencia:
+            print(i.cliente_cpf, i.numero_conta,
+                 i.numero_agencia, i.saldo, i.limite)
+    
+    @staticmethod
+    def identificar_cliente_conta() -> list|bool:
+        
+        cpf_cliente = str(input('\n\nDigite o CPF do titular da Conta: '+
+                                '\n\n>>> '))
+        
+        verificacao_01 = Servicos.tratar_cpf(cpf_cliente)
+        
+        if verificacao_01 == False:
+            print('CPF inválido!!!')
+            return False
+        
+        verificacao_02 = Servicos.verificar_cliente_cpf(verificacao_01)
+        
+        if verificacao_02 == False:
+            print('\nCPF informado não está cadastrado!!!')
+            return False
+         
+        for i in conta.Conta.relacao_contas_da_agencia:
+            
+            if verificacao_01 == i.cliente_cpf:
+                cpf_titular = i.cliente_cpf
+                print(f'Conta Cadastrada: {i.numero_conta}')
+        
+        conta_cliente = str(input('\n\nDigite o numero da conta para realizar a operação: '+
+                            '\n\n>>> '))
+        
+        for i in conta.Conta.relacao_contas_da_agencia:
+            if conta_cliente == i.numero_conta:
+                return i.cliente_cpf, i.numero_conta
+        
+        print('\n\nNúmero de conta inválido!!!')
+    
+    @staticmethod   
+    def borda(texto) -> None:
+        tam = len(texto)
+        if tam:
+            print('+','-'*tam,'+')
+            print('|',texto,'|')
+            print('+','-'*tam,'+')       
+            
     
     # Método adicional para teste
     @staticmethod
-    def validar_cpf(cpf):
+    def validar_cpf(cpf) -> bool:
         
         verificar_cpf = Servicos.tratar_cpf(cpf)
         
@@ -159,13 +205,3 @@ class Servicos:
         else:
             print('CPF válido!!!')
             True
-
-    @staticmethod   
-    def borda(texto):
-        tam = len(texto)
-        if tam:
-            print('+','-'*tam,'+')
-            print('|',texto,'|')
-            print('+','-'*tam,'+')       
-            
-    

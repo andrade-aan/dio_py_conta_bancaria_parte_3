@@ -5,13 +5,17 @@ import clientes
 import conta
 
 
-class Transacoes(ABC):
+class Transacoes:
     
-    def debito(self):...
+    def debito_conta(self, conta, valor) -> float:
+        
+        instante_operacao = servicos.Servicos.instante()
+        
+        
 
 class Cadastro:
     
-    @staticmethod
+    @staticmethod # opcao 2 do menu gerencia
     def criar_novo_cliente():
         
         dados_cliente = servicos.Servicos.cadastrar_pessoa_fisica()
@@ -33,8 +37,11 @@ class Cadastro:
                                                  
         
         novo_cliente.adicionar_conta(nova_conta_cliente)
-              
+        
+        
+        # alimentar base de dados - list    
         clientes.Clientes.db_adicionar_clientes(novo_cliente)
+        conta.ContaCorrente.db_adicionar_conta(nova_conta_cliente)
     
     @staticmethod # opcao 1 do menu gerencia   
     def criar_nova_conta_cliente(cpf):
@@ -46,6 +53,8 @@ class Cadastro:
                                                  0.0, 0.0)
         
         clientes.Clientes.adicionar_conta_cliente(cpf, nova_conta_cliente)
+        conta.ContaCorrente.db_adicionar_conta(nova_conta_cliente)
+        
 
 
 if __name__ == '__main__':
