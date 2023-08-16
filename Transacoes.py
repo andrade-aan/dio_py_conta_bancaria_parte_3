@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from datetime import datetime as dt
 import servicos
 import clientes
+import conta
 
 
 class Transacoes(ABC):
@@ -17,25 +18,34 @@ class Cadastro:
         
         if dados_cliente == False:
             return False
-        
+        # cpf_titular_pf, nome_titular_pf, data_nascimento_pf, endereco_pf
         novo_cliente = clientes.PessoaFisica(dados_cliente[0], 
                                              dados_cliente[1],
                                              dados_cliente[2],
                                              dados_cliente[3])
         
-        nova_conta_cliente = servicos.Servicos.criar_conta()
+        numero_nova_conta_cliente = servicos.Servicos.criar_conta()
+        
+        nova_conta_cliente = conta.ContaCorrente(dados_cliente[0],
+                                                 numero_nova_conta_cliente,
+                                                 conta.Conta.bco_agencia_numero,
+                                                 0.0, 0.0)
+                                                 
         
         novo_cliente.adicionar_conta(nova_conta_cliente)
               
         clientes.Clientes.db_adicionar_clientes(novo_cliente)
     
-    @staticmethod    
+    @staticmethod # opcao 1 do menu gerencia   
     def criar_nova_conta_cliente(cpf):
         nova_conta = servicos.Servicos.criar_conta()
         
+        nova_conta_cliente = conta.ContaCorrente(cpf,
+                                                 nova_conta,
+                                                 conta.Conta.bco_agencia_numero,
+                                                 0.0, 0.0)
         
-        
-        clientes.Clientes.adicionar_conta_cliente(cpf, nova_conta)
+        clientes.Clientes.adicionar_conta_cliente(cpf, nova_conta_cliente)
 
 
 if __name__ == '__main__':

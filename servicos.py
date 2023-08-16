@@ -15,7 +15,7 @@ class Servicos:
         return reg_hora_operacao_formatado
     
     @staticmethod
-    def criar_conta():
+    def criar_conta(): # apenas geracao do numero de conta
         
         global conta_cliente_ag0001
         
@@ -51,7 +51,8 @@ class Servicos:
             return False
         
         endereco_pf = str(input("Digite o endereço: "))
-                
+        
+        # enviar para transacoes.Cadastro como list       
         return cpf_titular_pf, nome_titular_pf, data_nascimento_pf, endereco_pf
     
     @staticmethod
@@ -103,7 +104,7 @@ class Servicos:
     def verificar_cliente_cpf(item):
         
         for i in clientes.Clientes.relacao_clientes:
-            print('passagem linha_105_servicos')
+            print('passagem linha_106_servicos')
             if item == i.cpf:
                 print("Cliente já cadastrado no banco de dados!!!")
                 return True

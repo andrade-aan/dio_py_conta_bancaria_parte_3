@@ -65,8 +65,8 @@ class PessoaFisica(Clientes):
         return self._endereco
 
          
-c1 = PessoaFisica('444','a','09/09/2000','apto 12')
-c1.adicionar_conta('1111')
+c1 = PessoaFisica('444','Deborah','09/09/2000','Rua Alef CD BetShalem apto 128')
+c1.adicionar_conta('181-1')
 Clientes.db_adicionar_clientes(c1)
 
 if __name__ == '__main__':
