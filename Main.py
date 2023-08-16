@@ -1,6 +1,5 @@
 import clientes, servicos, conta, historico, transacoes
 
-
 def menu_principal():
     print("\n1 - SACAR")
     print("2 - DEPOSITAR")

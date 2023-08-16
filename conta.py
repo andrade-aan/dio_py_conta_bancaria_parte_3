@@ -69,7 +69,6 @@ class ContaCorrente(Conta):
     def db_adicionar_conta(cls, item) -> None:
         cls.relacao_contas_da_agencia.append(item)
 
-
     @property
     def limite(self):
         return self._limite
@@ -84,3 +83,6 @@ ContaCorrente.db_adicionar_conta(conta_teste2)
 
 conta_teste3 = ContaCorrente('444','888-5','0001-9',0,0)
 ContaCorrente.db_adicionar_conta(conta_teste3)
+
+conta_teste4 = ContaCorrente('444','822-5','0001-9',0,0)
+ContaCorrente.db_adicionar_conta(conta_teste4)

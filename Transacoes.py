@@ -12,7 +12,6 @@ class Transacoes:
         instante_operacao = servicos.Servicos.instante()
         
         
-
 class Cadastro:
     
     @staticmethod # opcao 2 do menu gerencia
@@ -55,7 +54,6 @@ class Cadastro:
         clientes.Clientes.adicionar_conta_cliente(cpf, nova_conta_cliente)
         conta.ContaCorrente.db_adicionar_conta(nova_conta_cliente)
         
-
 
 if __name__ == '__main__':
 

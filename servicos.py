@@ -161,8 +161,7 @@ class Servicos:
             print('+','-'*tam,'+')
             print('|',texto,'|')
             print('+','-'*tam,'+')       
-            
-    
+      
     # Método adicional para teste
     @staticmethod
     def validar_cpf(cpf) -> bool:

@@ -2,7 +2,6 @@ from abc import ABC
 from datetime import datetime as dt
 import servicos
 
-
 class Clientes:
    
     relacao_clientes = []
